@@ -10845,3 +10845,11 @@ textarea.form-control-lg {
   border-left: 2px solid #dee2e6;
   padding-left: 15px;
 }
+
+.itemPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+}

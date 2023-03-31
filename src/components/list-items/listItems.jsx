@@ -1,28 +1,35 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
-const ListItems = ({productId,  addToCart}) => {
+const ListItems = ({ productId, addToCart }) => {
 	const [itemsList, setItemsList] = useState([]);
 	const [cart, setCart] = useState([]);
+	const [offset, setOffset] = useState(8);
 
 	useEffect(() => {
-		fetch("https://fakestoreapi.com/products?limit=20")
-			.then((response) => response.json())
-			.then((data) => setItemsList(data))
-			.catch((error) => console.error(error));
-	}, [productId]);
+		sendRequest(offset);
+	}, []);
 
+	const sendRequest = (offset) => {
+		fetch(`https://fakestoreapi.com/products?limit=${offset}`)
+			.then((response) => response.json())
+			.then((data) => setItemsList([...itemsList, ...data]))
+			.then(() => setOffset(offset + 8))
+			.catch((error) => console.error(error));
+	};
+
+	console.log(offset)
 
 	const toCart = (product) => {
 		setCart([...cart, product]);
 		addToCart(product);
 	};
 
-
 	function renderItems(arr) {
-		const items = arr.map((item) => {
+		const items = arr.map((item, i) => {
 			return (
-				<div className="col mb-5" key={item.id}>
+				<div className="col mb-5" key={i}>
 					<div className="card h-100 p-3">
 						<img className="card-img-top" src={item.image} alt="..." />
 
@@ -33,13 +40,14 @@ const ListItems = ({productId,  addToCart}) => {
 								{item.price}$
 							</div>
 						</div>
-						<Link to={`${item.id}`}>
-                    <p>Test</p>
-                </Link>
+
+						<Link to={`/${item.id}`}>Item page</Link>
 						<div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
 							<div className="text-center">
-								<button className="btn btn-outline-dark mt-auto"
-                                onClick={() => toCart(item)}>
+								<button
+									className="btn btn-outline-dark mt-auto"
+									onClick={() => toCart(item)}
+								>
 									To cart
 								</button>
 							</div>
@@ -54,7 +62,14 @@ const ListItems = ({productId,  addToCart}) => {
 
 	const items = renderItems(itemsList);
 
-	return <>{items}</>;
+	return (
+		<>
+			{items}
+			<Button variant="dark" onClick={() => sendRequest(offset)}>
+				Load more...
+			</Button>
+		</>
+	);
 };
 
 export default ListItems;
