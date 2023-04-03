@@ -3,8 +3,10 @@ import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 
 const CartItem = ({ cart, removeFromCart }) => {
-	const totalSum = cart.reduce((acc, curr) => acc + curr.price, 0).toFixed(2);
+	const totalSum = cart.reduce((acc, curr) => acc + curr.price * curr.amount, 0).toFixed(2);
 	const totalItems = Object.keys(cart).length;
+
+
 
 	const [showModal, setShowModal] = useState(false);
 	const handleModal = () => setShowModal(!showModal);
@@ -24,30 +26,34 @@ const CartItem = ({ cart, removeFromCart }) => {
 						<ul>
 							{totalItems === 0
 								? "The Cart is empty :("
-								: cart.map((product) => (
-										<li key={product.id} className="productList">
-                      <div className="productList-info">
-                      <img
-												src={product.image}
-												alt={product.title}
-												style={{
-													maxWidth: "150px",
-													paddingRight: "15px",
-												}}
-											/>
-											{product.title} - {product.price}$
-                      </div>
-										
-											<div className="productList-btn">
-												<button
-													className="btn btn-danger ms-3"
-													onClick={() => handleRemove(product.id)}
-												>
-													Remove
-												</button>
-											</div>
-										</li>
-								  ))}
+								: cart
+										.reduce((unique, item) => {
+											return unique.includes(item) ? unique : [...unique, item];
+										}, [])
+										.map((product) => (
+											<li key={product.id} className="productList">
+												<div className="productList-info">
+													<img
+														src={product.image}
+														alt={product.title}
+														style={{
+															maxWidth: "150px",
+															paddingRight: "15px",
+														}}
+													/>
+													{product.title} - {product.price} $ x {product.amount} | Sum - {product.price*product.amount}$
+												</div>
+
+												<div className="productList-btn">
+													<button
+														className="btn btn-danger ms-3"
+														onClick={() => handleRemove(product.id)}
+													>
+														Remove
+													</button>
+												</div>
+											</li>
+										))}
 						</ul>
 
 						<div className="productCart__sum">

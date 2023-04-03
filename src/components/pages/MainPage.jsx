@@ -6,8 +6,17 @@ import Footer from "../footer/footer";
 function MainPage(props) {
 	const { cart, setCart, removeFromCart } = props;
 	const addToCart = (product) => {
-		setCart([...cart, product]);
-	};
+		const existingProduct = cart.find((item) => item.id === product.id);
+		if (existingProduct) {
+		  setCart(
+			cart.map((item) =>
+			  item.id === product.id ? { ...item, amount: item.amount + 1 } : item
+			)
+		  );
+		} else {
+		  setCart([...cart, { ...product, amount: 1 }]);
+		}
+	  };
 
 	return (
 		<div className="App">
