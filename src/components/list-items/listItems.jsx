@@ -30,7 +30,11 @@ const ListItems = ({ productId, addToCart }) => {
 			return (
 				<div className="col mb-5" key={i}>
 					<div className="card h-100 p-3">
-						<img className="card-img-top" src={item.image} alt="..." />
+						<img className="card-img-top" src={item.image} alt={item.title} style={{
+															maxHeight: "200px",
+															paddingRight: "15px",
+                              objectFit: 'contain'
+														}}/>
 
 						<div className="card-body p-4">
 							<div className="text-center">
