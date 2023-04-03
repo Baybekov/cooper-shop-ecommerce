@@ -12,10 +12,11 @@ import Header from "../header/Header";
 import Footer from "../footer/footer";
 
 const ItemPage = (props) => {
+	const { cart, setCart, removeFromCart } = props;
 	const { id } = useParams();
+	
 
 	const [product, setProduct] = useState(null);
-    const {cart}= props;
 
 	useEffect(() => {
 		fetch(`https://fakestoreapi.com/products/${id}`)
@@ -23,9 +24,15 @@ const ItemPage = (props) => {
 			.then((data) => setProduct(data));
 	}, [id]);
 
+
+	const addToCart = (product) => {
+		setCart([...cart, product]);
+	};
+
+
 	return (
         <>
-        <Nav cart={cart}/>
+        <Nav cart={cart} removeFromCart={removeFromCart} />
         <Header />
 		<Container style={{'min-height' : '60vh'}}>
 			<Row>
@@ -40,7 +47,13 @@ const ItemPage = (props) => {
 							/>
 							<p>{product.description} | {product.category}</p>
                             <p>{product.price}$</p>
-							<Link to='/' >
+							<button
+									className="btn btn-outline-dark mt-auto"
+									onClick={() => addToCart(product)}
+								>
+									Add to cart
+								</button>
+							<Link to='/'>
 								<Button variant="outline-secondary">Back to store</Button>
 							</Link>
 						</div>

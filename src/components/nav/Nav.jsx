@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import CartItem from "../cartItem/CartItem";
 
-const Nav = ({ cart }) => {
+const Nav = ({ cart, removeFromCart }) => {
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 			<div className="container px-4 px-lg-5">
@@ -28,7 +28,7 @@ const Nav = ({ cart }) => {
 								Home
 							</Link>
 						</li>
-						<CartItem cart={cart} />
+						<CartItem cart={cart} removeFromCart={removeFromCart}/>
 					</ul>
 				</div>
 			</div>

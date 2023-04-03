@@ -10853,3 +10853,19 @@ textarea.form-control-lg {
   align-items: center;
   padding: 50px 0;
 }
+
+.productList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.productList-info {
+  width: 70%;
+}
+
+.productList-btn {
+  width: 30%;
+}

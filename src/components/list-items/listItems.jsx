@@ -9,17 +9,16 @@ const ListItems = ({ productId, addToCart }) => {
 
 	useEffect(() => {
 		sendRequest(offset);
-	}, []);
+	}, [productId]);
 
 	const sendRequest = (offset) => {
 		fetch(`https://fakestoreapi.com/products?limit=${offset}`)
 			.then((response) => response.json())
-			.then((data) => setItemsList([...itemsList, ...data]))
+			.then((data) => setItemsList([...data]))
 			.then(() => setOffset(offset + 8))
 			.catch((error) => console.error(error));
 	};
 
-	console.log(offset)
 
 	const toCart = (product) => {
 		setCart([...cart, product]);
@@ -27,7 +26,7 @@ const ListItems = ({ productId, addToCart }) => {
 	};
 
 	function renderItems(arr) {
-		const items = arr.map((item, i) => {
+		const items = arr.map((item,  i) => {
 			return (
 				<div className="col mb-5" key={i}>
 					<div className="card h-100 p-3">
@@ -35,13 +34,15 @@ const ListItems = ({ productId, addToCart }) => {
 
 						<div className="card-body p-4">
 							<div className="text-center">
-								<h4 className="fw-bolder text-center">{item.title}</h4>
+								<h4 className="fw-bolder text-center">{item.title.slice(0, 32)}...</h4>
 								<h5 className="fw-bolder">{item.name}</h5>
-								{item.price}$
+								{item.price}$ <br />
+								<Link to={`/${item.id}`}>Show more</Link>
 							</div>
+							
 						</div>
 
-						<Link to={`/${item.id}`}>Item page</Link>
+						
 						<div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
 							<div className="text-center">
 								<button
