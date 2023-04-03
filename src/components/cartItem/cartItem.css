@@ -1,0 +1,44 @@
+.modal {
+    --bs-modal-width: 80%!important;
+}
+
+.productCart {
+	display: flex;
+	justify-content: space-between;
+}
+
+.productCart ul {
+	width: 70%;
+	list-style: none;
+}
+.productCart__sum {
+	width: 30%;
+	border-left: 2px solid #dee2e6;
+	padding-left: 15px;
+}
+
+.itemPage {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 50px 0;
+}
+
+.productList {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 15px;
+	border-bottom: 2px solid #dee2e6;
+}
+
+.productList-info {
+    display: flex;
+    align-items: center;
+	width: 70%;
+}
+
+.productList-btn {
+	width: 30%;
+}

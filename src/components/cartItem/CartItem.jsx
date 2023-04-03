@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import { Button, Modal } from "react-bootstrap";
 
+import './cartItem.css'
+
 const CartItem = ({ cart, removeFromCart }) => {
 	const totalSum = cart.reduce((acc, curr) => acc + curr.price * curr.amount, 0).toFixed(2);
 	const totalItems = Object.keys(cart).length;

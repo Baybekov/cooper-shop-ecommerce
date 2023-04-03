@@ -4,7 +4,6 @@ import { useState } from "react";
 import MainPage from "../pages/MainPage";
 import ItemPage from "../pages/ItemPage";
 
-import "./App.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
