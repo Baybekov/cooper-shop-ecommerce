@@ -19,6 +19,8 @@ const ListItems = ({ productId, addToCart }) => {
 			.catch((error) => console.error(error));
 	};
 
+	console.log(offset)
+
 
 	const toCart = (product) => {
 		setCart([...cart, product]);
@@ -70,7 +72,7 @@ const ListItems = ({ productId, addToCart }) => {
 	return (
 		<>
 			{items}
-			<Button variant="dark" onClick={() => sendRequest(offset)}>
+			<Button style={offset >= 32 ? {'visibility' : 'hidden'} : null} variant="dark" onClick={() => sendRequest(offset)}>
 				Load more...
 			</Button>
 		</>
